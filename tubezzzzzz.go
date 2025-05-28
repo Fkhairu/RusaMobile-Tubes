@@ -164,12 +164,19 @@ func main() {
 			case "1":
 				var namaCari string
 				fmt.Print("Masukkan Nama Pasien yang dicari: ")
-				fmt.Scanln(&namaCari)
-				for _, pasien := range pasienList {
-					if pasien.Nama == namaCari {
-						fmt.Printf("Pasien Ditemukan: ID: %d, Nama: %s, Usia: %d, Tinggi: %.2f m, Berat: %.2f kg, Kondisi: %v\n",
-							pasien.ID, pasien.Nama, pasien.Usia, pasien.Tinggi, pasien.Berat, pasien.Kondisi)
-					}
+    			fmt.Scanln(&namaCari)
+    			ditemukan := false // Flag untuk menandakan apakah pasien ditemukan atau tidak
+    			for _, pasien := range pasienList {
+        			if pasien.Nama == namaCari {
+            	fmt.Printf("Pasien Ditemukan: ID: %d, Nama: %s, Usia: %d, Tinggi: %.2f m, Berat: %.2f kg, Kondisi: %v\n", 
+                	pasien.ID, pasien.Nama, pasien.Usia, pasien.Tinggi, pasien.Berat, pasien.Kondisi)
+            	ditemukan = true
+        			}
+				
+				}
+    			if !ditemukan {
+        			fmt.Println("Pasien tidak ditemukan.")
+    		
 				}
 
 			case "2":
