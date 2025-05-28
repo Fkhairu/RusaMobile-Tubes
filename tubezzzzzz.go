@@ -2,34 +2,31 @@ package main
 
 import (
 	"fmt"
+	"sort"
 	"strings"
-	"sort"  // Menambahkan import sort untuk fungsi sorting
 )
 
-// Struktur data untuk pasien
 type Pasien struct {
-	ID        int
-	Nama      string
-	Usia      int
-	Tinggi    float64 // tinggi badan dalam meter
-	Berat     float64 // berat badan dalam kg
-	Kondisi   []string // daftar kondisi medis
+	ID      int
+	Nama    string
+	Usia    int
+	Tinggi  float64
+	Berat   float64
+	Kondisi []string
 }
 
-// Struktur data untuk dokter
 type Dokter struct {
-	ID        int
-	Nama      string
+	ID           int
+	Nama         string
 	Spesialisasi string
-	Pasien    []Pasien // pasien yang ditangani oleh dokter
+	Pasien       []Pasien
 }
 
-// Struktur data untuk rumah sakit
 type RumahSakit struct {
-	ID       int
-	Nama     string
-	Lokasi   string
-	Dokter   []Dokter // daftar dokter yang bekerja di rumah sakit
+	ID     int
+	Nama   string
+	Lokasi string
+	Dokter []Dokter
 }
 
 func main() {
@@ -38,7 +35,6 @@ func main() {
 	var rumahSakitList []RumahSakit
 	var pasienID, dokterID, rumahSakitID int
 
-	// Menambahkan data pasien, dokter, dan rumah sakit
 	for {
 		var aksi string
 		fmt.Println("\nPilih aksi:")
@@ -53,7 +49,7 @@ func main() {
 
 		switch aksi {
 		case "1":
-			// Menambah pasien
+
 			pasienID++
 			var nama, kondisi string
 			var usia int
@@ -71,17 +67,16 @@ func main() {
 			kondisiList := strings.Split(kondisi, ",")
 
 			pasienList = append(pasienList, Pasien{
-				ID:        pasienID,
-				Nama:      nama,
-				Usia:      usia,
-				Tinggi:    tinggi,
-				Berat:     berat,
-				Kondisi:   kondisiList,
+				ID:      pasienID,
+				Nama:    nama,
+				Usia:    usia,
+				Tinggi:  tinggi,
+				Berat:   berat,
+				Kondisi: kondisiList,
 			})
 			fmt.Println("Pasien berhasil ditambahkan!")
 
 		case "2":
-			// Menambah dokter
 			dokterID++
 			var nama, spesialisasi string
 			var jumlahPasien int
@@ -90,7 +85,6 @@ func main() {
 			fmt.Print("Masukkan Spesialisasi Dokter: ")
 			fmt.Scanln(&spesialisasi)
 
-			// Menambahkan pasien untuk dokter
 			fmt.Print("Berapa pasien yang ditangani oleh dokter ini? ")
 			fmt.Scanln(&jumlahPasien)
 
@@ -100,7 +94,6 @@ func main() {
 				fmt.Print("Masukkan Nama Pasien yang Ditangani: ")
 				fmt.Scanln(&pasienNama)
 
-				// Mencari pasien yang sesuai
 				for _, p := range pasienList {
 					if p.Nama == pasienNama {
 						pasienTerkait = append(pasienTerkait, p)
@@ -117,7 +110,7 @@ func main() {
 			fmt.Println("Dokter berhasil ditambahkan!")
 
 		case "3":
-			// Menambah rumah sakit
+
 			rumahSakitID++
 			var nama, lokasi string
 			fmt.Print("Masukkan Nama Rumah Sakit: ")
@@ -133,19 +126,17 @@ func main() {
 			fmt.Println("Rumah sakit berhasil ditambahkan!")
 
 		case "4":
-			// Sorting data pasien berdasarkan usia
+
 			sort.Slice(pasienList, func(i, j int) bool {
 				return pasienList[i].Usia < pasienList[j].Usia
 			})
 
-			// Menampilkan data pasien
 			fmt.Println("\nDaftar Pasien:")
 			for _, pasien := range pasienList {
-				fmt.Printf("ID: %d, Nama: %s, Usia: %d, Tinggi: %.2f m, Berat: %.2f kg, Kondisi: %v\n", 
+				fmt.Printf("ID: %d, Nama: %s, Usia: %d, Tinggi: %.2f m, Berat: %.2f kg, Kondisi: %v\n",
 					pasien.ID, pasien.Nama, pasien.Usia, pasien.Tinggi, pasien.Berat, pasien.Kondisi)
 			}
 
-			// Menampilkan data dokter
 			fmt.Println("\nDaftar Dokter:")
 			for _, dokter := range dokterList {
 				fmt.Printf("ID: %d, Nama: %s, Spesialisasi: %s\n", dokter.ID, dokter.Nama, dokter.Spesialisasi)
@@ -154,14 +145,13 @@ func main() {
 				}
 			}
 
-			// Menampilkan data rumah sakit
 			fmt.Println("\nDaftar Rumah Sakit:")
 			for _, rumahSakit := range rumahSakitList {
 				fmt.Printf("ID: %d, Nama: %s, Lokasi: %s\n", rumahSakit.ID, rumahSakit.Nama, rumahSakit.Lokasi)
 			}
 
 		case "5":
-			// Pencarian
+
 			var jenisPencarian string
 			fmt.Println("\nPilih jenis pencarian:")
 			fmt.Println("1. Pencarian Pasien Berdasarkan Nama")
@@ -177,7 +167,7 @@ func main() {
 				fmt.Scanln(&namaCari)
 				for _, pasien := range pasienList {
 					if pasien.Nama == namaCari {
-						fmt.Printf("Pasien Ditemukan: ID: %d, Nama: %s, Usia: %d, Tinggi: %.2f m, Berat: %.2f kg, Kondisi: %v\n", 
+						fmt.Printf("Pasien Ditemukan: ID: %d, Nama: %s, Usia: %d, Tinggi: %.2f m, Berat: %.2f kg, Kondisi: %v\n",
 							pasien.ID, pasien.Nama, pasien.Usia, pasien.Tinggi, pasien.Berat, pasien.Kondisi)
 					}
 				}
