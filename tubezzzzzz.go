@@ -175,7 +175,7 @@ func main() {
 				
 				}
     			if !ditemukan {
-        			fmt.Println("Pasien tidak ditemukan.")
+        			fmt.Println("Pasien tidak ditemukan, pastikan nama pasien yang anda masukkan sudah terdaftar.")
     		
 				}
 
