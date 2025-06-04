@@ -30,182 +30,154 @@ type RumahSakit struct {
 }
 
 func main() {
-	var pasienList []Pasien
-	var dokterList []Dokter
-	var rumahSakitList []RumahSakit
-	var pasienID, dokterID, rumahSakitID int
+	var pasienID int
+
+	// Data awal dokter dan rumah sakit
+	dokterList := []Dokter{
+		{ID: 1, Nama: "Dr. Andi", Spesialisasi: "Penyakit Dalam"},
+		{ID: 2, Nama: "Dr. Budi", Spesialisasi: "Anak"},
+		{ID: 3, Nama: "Dr. Citra", Spesialisasi: "Bedah Umum"},
+		{ID: 4, Nama: "Dr. Dedi", Spesialisasi: "Kandungan"},
+		{ID: 5, Nama: "Dr. Evi", Spesialisasi: "THT"},
+		{ID: 6, Nama: "Dr. Fajar", Spesialisasi: "Mata"},
+		{ID: 7, Nama: "Dr. Gita", Spesialisasi: "Gigi"},
+	}
+	rumahSakitList := []RumahSakit{
+		{ID: 1, Nama: "RS Wico Selatan", Lokasi: "Jakarta", Dokter: []Dokter{dokterList[0]}},
+		{ID: 2, Nama: "RS Wico Utara", Lokasi: "Bandung", Dokter: []Dokter{dokterList[1]}},
+		{ID: 3, Nama: "RS Wico Barat", Lokasi: "Surabaya", Dokter: []Dokter{dokterList[2]}},
+		{ID: 4, Nama: "RS Wico Timur", Lokasi: "Yogyakarta", Dokter: []Dokter{dokterList[3]}},
+		{ID: 5, Nama: "RS SWK Ketintang", Lokasi: "Medan", Dokter: []Dokter{dokterList[4]}},
+		{ID: 6, Nama: "RS SWK Gayungan", Lokasi: "Makassar", Dokter: []Dokter{dokterList[5]}},
+		{ID: 7, Nama: "RS Swk ", Lokasi: "Palembang", Dokter: []Dokter{dokterList[6]}},
+	}
 
 	for {
 		var aksi string
 		fmt.Println("\nPilih aksi:")
 		fmt.Println("1. Tambah Pasien")
-		fmt.Println("2. Tambah Dokter")
-		fmt.Println("3. Tambah Rumah Sakit")
-		fmt.Println("4. Tampilkan Data")
-		fmt.Println("5. Pencarian")
-		fmt.Println("6. Keluar")
-		// contoh
+		fmt.Println("2. Tampilkan Data")
+		fmt.Println("3. Pencarian")
+		fmt.Println("4. Keluar")
 		fmt.Print("Pilih aksi: ")
 		fmt.Scanln(&aksi)
 
 		switch aksi {
 		case "1":
-
 			pasienID++
 			var nama, kondisi string
 			var usia int
 			var tinggi, berat float64
+
 			fmt.Print("Masukkan Nama Pasien: ")
 			fmt.Scanln(&nama)
 			fmt.Print("Masukkan Usia Pasien: ")
 			fmt.Scanln(&usia)
-			fmt.Print("Masukkan Tinggi Badan (dalam meter): ")
+			fmt.Print("Masukkan Tinggi Badan (m): ")
 			fmt.Scanln(&tinggi)
-			fmt.Print("Masukkan Berat Badan (dalam kg): ")
+			fmt.Print("Masukkan Berat Badan (kg): ")
 			fmt.Scanln(&berat)
-			fmt.Print("Masukkan Kondisi Medis (pisahkan dengan koma jika lebih dari satu): ")
+			fmt.Print("Masukkan Kondisi Medis (pisahkan dengan koma): ")
 			fmt.Scanln(&kondisi)
 			kondisiList := strings.Split(kondisi, ",")
 
-			pasienList = append(pasienList, Pasien{
+			// Pilih Rumah Sakit
+			fmt.Println("Pilih Rumah Sakit:")
+			for _, rs := range rumahSakitList {
+				fmt.Printf("%d. %s (%s)\n", rs.ID, rs.Nama, rs.Lokasi)
+			}
+			var pilihRS int
+			fmt.Print("Masukkan ID Rumah Sakit: ")
+			fmt.Scanln(&pilihRS)
+
+			// Validasi Rumah Sakit
+			var rumahSakit *RumahSakit
+			for i := range rumahSakitList {
+				if rumahSakitList[i].ID == pilihRS {
+					rumahSakit = &rumahSakitList[i]
+					break
+				}
+			}
+			if rumahSakit == nil {
+				fmt.Println("Rumah sakit tidak ditemukan.")
+				continue
+			}
+
+			// Pilih Dokter di Rumah Sakit tersebut
+			fmt.Println("Pilih Dokter:")
+			for _, d := range rumahSakit.Dokter {
+				fmt.Printf("%d. %s (%s)\n", d.ID, d.Nama, d.Spesialisasi)
+			}
+			var pilihDokter int
+			fmt.Print("Masukkan ID Dokter: ")
+			fmt.Scanln(&pilihDokter)
+
+			// Validasi Dokter
+			var dokter *Dokter
+			for i := range rumahSakit.Dokter {
+				if rumahSakit.Dokter[i].ID == pilihDokter {
+					dokter = &rumahSakit.Dokter[i]
+					break
+				}
+			}
+			if dokter == nil {
+				fmt.Println("Dokter tidak ditemukan.")
+				continue
+			}
+
+			// Tambah pasien ke dokter
+			pasienBaru := Pasien{
 				ID:      pasienID,
 				Nama:    nama,
 				Usia:    usia,
 				Tinggi:  tinggi,
 				Berat:   berat,
 				Kondisi: kondisiList,
-			})
+			}
+			dokter.Pasien = append(dokter.Pasien, pasienBaru)
 			fmt.Println("Pasien berhasil ditambahkan!")
 
 		case "2":
-			dokterID++
-			var nama, spesialisasi string
-			var jumlahPasien int
-			fmt.Print("Masukkan Nama Dokter: ")
-			fmt.Scanln(&nama)
-			fmt.Print("Masukkan Spesialisasi Dokter: ")
-			fmt.Scanln(&spesialisasi)
-
-			fmt.Print("Berapa pasien yang ditangani oleh dokter ini? ")
-			fmt.Scanln(&jumlahPasien)
-
-			var pasienTerkait []Pasien
-			for i := 0; i < jumlahPasien; i++ {
-				var pasienNama string
-				fmt.Print("Masukkan Nama Pasien yang Ditangani: ")
-				fmt.Scanln(&pasienNama)
-
-				for _, p := range pasienList {
-					if p.Nama == pasienNama {
-						pasienTerkait = append(pasienTerkait, p)
+			fmt.Println("\nData Rumah Sakit:")
+			for _, rs := range rumahSakitList {
+				fmt.Printf("RS: %s (%s)\n", rs.Nama, rs.Lokasi)
+				for _, d := range rs.Dokter {
+					fmt.Printf("  Dokter: %s (%s)\n", d.Nama, d.Spesialisasi)
+					sort.Slice(d.Pasien, func(i, j int) bool {
+						return d.Pasien[i].Usia < d.Pasien[j].Usia
+					})
+					for _, p := range d.Pasien {
+						fmt.Printf("    Pasien: %s, Usia: %d, Tinggi: %.2f, Berat: %.2f, Kondisi: %v\n",
+							p.Nama, p.Usia, p.Tinggi, p.Berat, p.Kondisi)
 					}
 				}
 			}
-
-			dokterList = append(dokterList, Dokter{
-				ID:           dokterID,
-				Nama:         nama,
-				Spesialisasi: spesialisasi,
-				Pasien:       pasienTerkait,
-			})
-			fmt.Println("Dokter berhasil ditambahkan!")
 
 		case "3":
-
-			rumahSakitID++
-			var nama, lokasi string
-			fmt.Print("Masukkan Nama Rumah Sakit: ")
-			fmt.Scanln(&nama)
-			fmt.Print("Masukkan Lokasi Rumah Sakit: ")
-			fmt.Scanln(&lokasi)
-
-			rumahSakitList = append(rumahSakitList, RumahSakit{
-				ID:     rumahSakitID,
-				Nama:   nama,
-				Lokasi: lokasi,
-			})
-			fmt.Println("Rumah sakit berhasil ditambahkan!")
+			var cariNama string
+			fmt.Print("Masukkan nama pasien yang dicari: ")
+			fmt.Scanln(&cariNama)
+			ditemukan := false
+			for _, rs := range rumahSakitList {
+				for _, d := range rs.Dokter {
+					for _, p := range d.Pasien {
+						if strings.EqualFold(p.Nama, cariNama) {
+							fmt.Printf("Pasien ditemukan di %s, Dokter: %s\n", rs.Nama, d.Nama)
+							fmt.Printf("  Usia: %d, Tinggi: %.2f, Berat: %.2f, Kondisi: %v\n", p.Usia, p.Tinggi, p.Berat, p.Kondisi)
+							ditemukan = true
+						}
+					}
+				}
+			}
+			if !ditemukan {
+				fmt.Println("Pasien tidak ditemukan.")
+			}
 
 		case "4":
-
-			sort.Slice(pasienList, func(i, j int) bool {
-				return pasienList[i].Usia < pasienList[j].Usia
-			})
-
-			fmt.Println("\nDaftar Pasien:")
-			for _, pasien := range pasienList {
-				fmt.Printf("ID: %d, Nama: %s, Usia: %d, Tinggi: %.2f m, Berat: %.2f kg, Kondisi: %v\n",
-					pasien.ID, pasien.Nama, pasien.Usia, pasien.Tinggi, pasien.Berat, pasien.Kondisi)
-			}
-
-			fmt.Println("\nDaftar Dokter:")
-			for _, dokter := range dokterList {
-				fmt.Printf("ID: %d, Nama: %s, Spesialisasi: %s\n", dokter.ID, dokter.Nama, dokter.Spesialisasi)
-				for _, pasien := range dokter.Pasien {
-					fmt.Printf("  Pasien: %s, Usia: %d\n", pasien.Nama, pasien.Usia)
-				}
-			}
-
-			fmt.Println("\nDaftar Rumah Sakit:")
-			for _, rumahSakit := range rumahSakitList {
-				fmt.Printf("ID: %d, Nama: %s, Lokasi: %s\n", rumahSakit.ID, rumahSakit.Nama, rumahSakit.Lokasi)
-			}
-
-		case "5":
-
-			var jenisPencarian string
-			fmt.Println("\nPilih jenis pencarian:")
-			fmt.Println("1. Pencarian Pasien Berdasarkan Nama")
-			fmt.Println("2. Pencarian Dokter Berdasarkan Spesialisasi")
-			fmt.Println("3. Pencarian Rumah Sakit Berdasarkan Lokasi")
-			fmt.Print("Pilih pencarian: ")
-			fmt.Scanln(&jenisPencarian)
-
-			switch jenisPencarian {
-			case "1":
-				var namaCari string
-				fmt.Print("Masukkan Nama Pasien yang dicari: ")
-				fmt.Scanln(&namaCari)
-				ditemukan := false // Flag untuk menandakan apakah pasien ditemukan atau tidak
-				for _, pasien := range pasienList {
-					if pasien.Nama == namaCari {
-						fmt.Printf("Pasien Ditemukan: ID: %d, Nama: %s, Usia: %d, Tinggi: %.2f m, Berat: %.2f kg, Kondisi: %v\n",
-							pasien.ID, pasien.Nama, pasien.Usia, pasien.Tinggi, pasien.Berat, pasien.Kondisi)
-						ditemukan = true
-					}
-
-				}
-				if !ditemukan {
-					fmt.Println("Pasien tidak ditemukan, pastikan nama pasien yang anda masukkan sudah terdaftar.")
-
-				}
-
-			case "2":
-				var spesialisasiCari string
-				fmt.Print("Masukkan Spesialisasi Dokter yang dicari: ")
-				fmt.Scanln(&spesialisasiCari)
-				for _, dokter := range dokterList {
-					if dokter.Spesialisasi == spesialisasiCari {
-						fmt.Printf("Dokter Ditemukan: ID: %d, Nama: %s, Spesialisasi: %s\n", dokter.ID, dokter.Nama, dokter.Spesialisasi)
-					}
-				}
-
-			case "3":
-				var lokasiCari string
-				fmt.Print("Masukkan Lokasi Rumah Sakit yang dicari: ")
-				fmt.Scanln(&lokasiCari)
-				for _, rumahSakit := range rumahSakitList {
-					if rumahSakit.Lokasi == lokasiCari {
-						fmt.Printf("Rumah Sakit Ditemukan: ID: %d, Nama: %s, Lokasi: %s\n", rumahSakit.ID, rumahSakit.Nama, rumahSakit.Lokasi)
-					}
-				}
-			}
-
-		case "6":
-			fmt.Println("Keluar dari program.")
+			fmt.Println("Program selesai.")
 			return
 		default:
-			fmt.Println("Aksi tidak dikenal. Silakan pilih aksi yang valid.")
+			fmt.Println("Pilihan tidak dikenal.")
 		}
 	}
 }
