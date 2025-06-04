@@ -44,6 +44,7 @@ func main() {
 		fmt.Println("4. Tampilkan Data")
 		fmt.Println("5. Pencarian")
 		fmt.Println("6. Keluar")
+		// contoh
 		fmt.Print("Pilih aksi: ")
 		fmt.Scanln(&aksi)
 
@@ -164,19 +165,19 @@ func main() {
 			case "1":
 				var namaCari string
 				fmt.Print("Masukkan Nama Pasien yang dicari: ")
-    			fmt.Scanln(&namaCari)
-    			ditemukan := false // Flag untuk menandakan apakah pasien ditemukan atau tidak
-    			for _, pasien := range pasienList {
-        			if pasien.Nama == namaCari {
-            	fmt.Printf("Pasien Ditemukan: ID: %d, Nama: %s, Usia: %d, Tinggi: %.2f m, Berat: %.2f kg, Kondisi: %v\n", 
-                	pasien.ID, pasien.Nama, pasien.Usia, pasien.Tinggi, pasien.Berat, pasien.Kondisi)
-            	ditemukan = true
-        			}
-				
+				fmt.Scanln(&namaCari)
+				ditemukan := false // Flag untuk menandakan apakah pasien ditemukan atau tidak
+				for _, pasien := range pasienList {
+					if pasien.Nama == namaCari {
+						fmt.Printf("Pasien Ditemukan: ID: %d, Nama: %s, Usia: %d, Tinggi: %.2f m, Berat: %.2f kg, Kondisi: %v\n",
+							pasien.ID, pasien.Nama, pasien.Usia, pasien.Tinggi, pasien.Berat, pasien.Kondisi)
+						ditemukan = true
+					}
+
 				}
-    			if !ditemukan {
-        			fmt.Println("Pasien tidak ditemukan, pastikan nama pasien yang anda masukkan sudah terdaftar.")
-    		
+				if !ditemukan {
+					fmt.Println("Pasien tidak ditemukan, pastikan nama pasien yang anda masukkan sudah terdaftar.")
+
 				}
 
 			case "2":
