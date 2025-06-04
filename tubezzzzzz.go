@@ -49,7 +49,7 @@ func main() {
 		{ID: 4, Nama: "RS Wico Timur", Lokasi: "Yogyakarta", Dokter: []Dokter{dokterList[3]}},
 		{ID: 5, Nama: "RS SWK Ketintang", Lokasi: "Medan", Dokter: []Dokter{dokterList[4]}},
 		{ID: 6, Nama: "RS SWK Gayungan", Lokasi: "Makassar", Dokter: []Dokter{dokterList[5]}},
-		{ID: 7, Nama: "RS Swk ", Lokasi: "Palembang", Dokter: []Dokter{dokterList[6]}},
+		{ID: 7, Nama: "RS Swk kebon", Lokasi: "Palembang", Dokter: []Dokter{dokterList[6]}},
 	}
 
 	for {
@@ -138,14 +138,22 @@ func main() {
 			fmt.Println("Pasien berhasil ditambahkan!")
 
 		case "2":
-			fmt.Println("\nData Rumah Sakit:")
 			for _, rs := range rumahSakitList {
 				fmt.Printf("RS: %s (%s)\n", rs.Nama, rs.Lokasi)
+
+				// 🔽 SORTING DOKTER BERDASARKAN NAMA
+				sort.Slice(rs.Dokter, func(i, j int) bool {
+					return rs.Dokter[i].Nama < rs.Dokter[j].Nama
+				})
+
 				for _, d := range rs.Dokter {
 					fmt.Printf("  Dokter: %s (%s)\n", d.Nama, d.Spesialisasi)
+
+					// 🔽 SORTING PASIEN BERDASARKAN USIA
 					sort.Slice(d.Pasien, func(i, j int) bool {
 						return d.Pasien[i].Usia < d.Pasien[j].Usia
 					})
+
 					for _, p := range d.Pasien {
 						fmt.Printf("    Pasien: %s, Usia: %d, Tinggi: %.2f, Berat: %.2f, Kondisi: %v\n",
 							p.Nama, p.Usia, p.Tinggi, p.Berat, p.Kondisi)
