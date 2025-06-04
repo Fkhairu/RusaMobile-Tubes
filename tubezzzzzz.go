@@ -30,6 +30,16 @@ type RumahSakit struct {
 	Dokter []Dokter
 }
 
+// Fungsi validasi nama hanya huruf
+func isAlphabetic(s string) bool {
+	for _, r := range s {
+		if !(r >= 'A' && r <= 'Z' || r >= 'a' && r <= 'z' || r == ' ') {
+			return false
+		}
+	}
+	return true
+}
+
 func main() {
 	//bagian array
 	var pasienList []Pasien
@@ -96,6 +106,19 @@ func main() {
 		Berat:   60,
 		Kondisi: []string{"Sakit Gigi", "Radang Gusi"},
 	})
+
+	// Contoh input pasien baru dengan validasi nama
+	// (Letakkan sebelum for loop utama jika ingin input pasien baru)
+	var namaPasien string
+	for {
+		fmt.Print("Masukkan nama pasien (huruf saja): ")
+		fmt.Scanln(&namaPasien)
+		if isAlphabetic(namaPasien) {
+			break
+		}
+		fmt.Println("Nama hanya boleh berisi huruf dan spasi. Silakan coba lagi.")
+	}
+	// Lanjutkan proses input pasien lain seperti usia, tinggi, dsb.
 
 	// Menampilkan Data Pasien, Dokter, Rumah Sakit
 	for {
