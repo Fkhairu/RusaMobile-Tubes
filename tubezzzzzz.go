@@ -40,7 +40,7 @@ func main() {
 	dokterID++
 	dokterList = append(dokterList, Dokter{
 		ID:           dokterID,
-		Nama:         "Dr. Jerry",
+		Nama:         "Dr. Ieam",
 		Spesialisasi: "Umum",
 		Penyakit:     []string{"Flu", "Pilek", "Radang Tenggorokan", "Bronkitis"},
 	})
@@ -48,7 +48,7 @@ func main() {
 	dokterID++
 	dokterList = append(dokterList, Dokter{
 		ID:           dokterID,
-		Nama:         "Dr. Siti",
+		Nama:         "Dr. Panus",
 		Spesialisasi: "Gigi",
 		Penyakit:     []string{"Sakit Gigi", "Radang Gusi", "Infeksi Gigi"},
 	})
@@ -64,16 +64,16 @@ func main() {
 	rumahSakitID++
 	rumahSakitList = append(rumahSakitList, RumahSakit{
 		ID:     rumahSakitID,
-		Nama:   "RS Sehat",
-		Lokasi: "Jakarta",
+		Nama:   "RS Telkom",
+		Lokasi: "Bandung",
 		Dokter: dokterList,
 	})
 
 	rumahSakitID++
 	rumahSakitList = append(rumahSakitList, RumahSakit{
 		ID:     rumahSakitID,
-		Nama:   "RS Cinta Sehat",
-		Lokasi: "Bandung",
+		Nama:   "RS Telkom",
+		Lokasi: "Jakarta",
 		Dokter: dokterList,
 	})
 
@@ -100,13 +100,13 @@ func main() {
 	// Menampilkan Data Pasien, Dokter, Rumah Sakit
 	for {
 		var aksi string
-		fmt.Println("\nPilih aksi:")
+		fmt.Println("\nPilih menu:")
 		fmt.Println("1. Lihat Daftar Pasien")
 		fmt.Println("2. Lihat Daftar Dokter")
 		fmt.Println("3. Lihat Daftar Rumah Sakit")
 		fmt.Println("4. Cari Dokter Berdasarkan Penyakit")
 		fmt.Println("5. Keluar")
-		fmt.Print("Masukkan aksi (1-5): ")
+		fmt.Print("Masukkan menu (1-5): ")
 		fmt.Scanln(&aksi)
 
 		switch aksi {
