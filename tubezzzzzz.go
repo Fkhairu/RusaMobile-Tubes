@@ -107,20 +107,17 @@ func main() {
 		Kondisi: []string{"Sakit Gigi", "Radang Gusi"},
 	})
 
-	// Contoh input pasien baru dengan validasi nama
-	// (Letakkan sebelum for loop utama jika ingin input pasien baru)
+
 	var namaPasien string
 	for {
-		fmt.Print("Masukkan nama pasien (huruf saja): ")
+		fmt.Print("Username: ")
 		fmt.Scanln(&namaPasien)
 		if isAlphabetic(namaPasien) {
 			break
 		}
 		fmt.Println("Nama hanya boleh berisi huruf dan spasi. Silakan coba lagi.")
 	}
-	// Lanjutkan proses input pasien lain seperti usia, tinggi, dsb.
 
-	// Menampilkan Data Pasien, Dokter, Rumah Sakit
 	for {
 		var aksi string
 		fmt.Println("\nPilih menu:")
