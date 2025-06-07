@@ -30,23 +30,14 @@ type RumahSakit struct {
 	Dokter []Dokter
 }
 
-// Fungsi validasi nama hanya huruf
-func isAlphabetic(s string) bool {
-	for _, r := range s {
-		if !(r >= 'A' && r <= 'Z' || r >= 'a' && r <= 'z' || r == ' ') {
-			return false
-		}
-	}
-	return true
-}
-
 func main() {
-	//bagian array
+	// bagian array
 	var pasienList []Pasien
 	var dokterList []Dokter
 	var rumahSakitList []RumahSakit
 	var pasienID, dokterID, rumahSakitID int
 
+	// Menambahkan dokter dan rumah sakit secara manual
 	dokterID++
 	dokterList = append(dokterList, Dokter{
 		ID:           dokterID,
@@ -66,7 +57,7 @@ func main() {
 	dokterID++
 	dokterList = append(dokterList, Dokter{
 		ID:           dokterID,
-		Nama:         "Dr. Jerry",
+		Nama:         "Dr. Andi",
 		Spesialisasi: "Ortopedi",
 		Penyakit:     []string{"Cedera ACL", "Patah Tulang", "Fraktur Ligamen", "Cedera Sendi"},
 	})
@@ -107,26 +98,27 @@ func main() {
 		Kondisi: []string{"Sakit Gigi", "Radang Gusi"},
 	})
 
-
-	var namaPasien string
-	for {
-		fmt.Print("Username: ")
-		fmt.Scanln(&namaPasien)
-		if isAlphabetic(namaPasien) {
-			break
-		}
-		fmt.Println("Nama hanya boleh berisi huruf dan spasi. Silakan coba lagi.")
-	}
-
+	// Menu utama
 	for {
 		var aksi string
 		fmt.Println("\nPilih menu:")
-		fmt.Println("1. Lihat Daftar Pasien")
+		fmt.Println("1. Daftar Pasien")
 		fmt.Println("2. Lihat Daftar Dokter")
 		fmt.Println("3. Lihat Daftar Rumah Sakit")
 		fmt.Println("4. Cari Dokter Berdasarkan Penyakit")
 		fmt.Println("5. Keluar")
 		fmt.Print("Masukkan menu (1-5): ")
+=======
+	// Menampilkan Data Pasien, Dokter, Rumah Sakit
+	for {
+		var aksi string
+		fmt.Println("\nPilih aksi:")
+		fmt.Println("1. Input Data Pasien")
+		fmt.Println("2. Lihat Daftar Dokter")
+		fmt.Println("3. Lihat Daftar Rumah Sakit")
+		fmt.Println("4. Keluar")
+		fmt.Print("Masukkan aksi (1-4): ")
+>>>>>>> Stashed changes
 		fmt.Scanln(&aksi)
 
 		switch aksi {
@@ -163,31 +155,6 @@ func main() {
 			}
 
 		case "4":
-			// Bagian search Penyakit
-			var penyakitCari string
-			fmt.Print("\nMasukkan Penyakit yang ingin dicari: ")
-			fmt.Scanln(&penyakitCari)
-
-			fmt.Println("\nDokter yang dapat menangani penyakit ini:")
-			found := false
-			for _, dokter := range dokterList {
-				for _, p := range dokter.Penyakit {
-					if strings.Contains(strings.ToLower(p), strings.ToLower(penyakitCari)) {
-						fmt.Printf("ID: %d, Nama: %s, Spesialisasi: %s\n", dokter.ID, dokter.Nama, dokter.Spesialisasi)
-						found = true
-					}
-				}
-			}
-			if !found {
-				fmt.Println("Tidak ada dokter yang menangani penyakit ini.")
-			}
-
-			fmt.Println("\nRumah Sakit yang dapat menangani penyakit ini:")
-			for _, rumahSakit := range rumahSakitList {
-				fmt.Printf("ID: %d, Nama: %s, Lokasi: %s\n", rumahSakit.ID, rumahSakit.Nama, rumahSakit.Lokasi)
-			}
-
-		case "5":
 			// Keluar dari program
 			fmt.Println("Terima kasih!")
 			return
