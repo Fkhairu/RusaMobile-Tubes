@@ -3,10 +3,9 @@ package main
 import (
 	"fmt"
 	"strings"
-	"sort" 
+	"sort"
 )
 
-// bagian structure
 type Pasien struct {
 	ID      int
 	Nama    string
@@ -31,13 +30,11 @@ type RumahSakit struct {
 }
 
 func main() {
-	// bagian array
 	var pasienList []Pasien
 	var dokterList []Dokter
 	var rumahSakitList []RumahSakit
 	var pasienID, dokterID, rumahSakitID int
 
-	// Menambahkan dokter dan rumah sakit 
 	dokterID++
 	dokterList = append(dokterList, Dokter{
 		ID:           dokterID,
@@ -150,7 +147,6 @@ func main() {
 		Penyakit:     []string{"Vitiligo", "Kanker Kulit", "Infeksi Jamur"},
 	})
 
-	// Menambahkan rumah sakit
 	rumahSakitID++
 	rumahSakitList = append(rumahSakitList, RumahSakit{
 		ID:     rumahSakitID,
@@ -183,7 +179,6 @@ func main() {
 		Dokter: dokterList,
 	})
 
-	// Menu utama
 	for {
 		var aksi string
 		fmt.Println("\nPilih menu:")
@@ -197,7 +192,6 @@ func main() {
 
 		switch aksi {
 		case "1":
-			// Daftar Pasien
 			var pilihan string
 			fmt.Println("\n1. Lihat Daftar Pasien")
 			fmt.Println("2. Tambah Pasien")
@@ -206,7 +200,6 @@ func main() {
 
 			switch pilihan {
 			case "1":
-				// Tampilkan daftar pasien
 				if len(pasienList) == 0 {
 					fmt.Println("Tidak ada pasien terdaftar.")
 				} else {
@@ -218,7 +211,6 @@ func main() {
 				}
 
 			case "2":
-				// Tambah pasien baru
 				var nama, kondisiInput string
 				var usia int
 				var tinggi, berat float64
@@ -235,7 +227,6 @@ func main() {
 				fmt.Print("Masukkan Kondisi Pasien (pisahkan dengan koma): ")
 				fmt.Scanf("%s\n", &kondisiInput)
 
-				
 				kondisi = strings.Split(kondisiInput, ",")
 				pasienID++
 				pasienList = append(pasienList, Pasien{
@@ -247,11 +238,9 @@ func main() {
 					Kondisi: kondisi,
 				})
 
-				// Rekomendasi dokter 
 				fmt.Println("Pasien berhasil ditambahkan!")
 				fmt.Println("Rekomendasi Dokter berdasarkan kondisi pasien:")
 
-			
 				for _, kondisiPenyakit := range kondisi {
 					for _, dokter := range dokterList {
 						for _, penyakit := range dokter.Penyakit {
@@ -267,7 +256,6 @@ func main() {
 			}
 
 		case "2":
-			// Sort Dokter berdasarkan Nama
 			sort.Slice(dokterList, func(i, j int) bool {
 				return dokterList[i].Nama < dokterList[j].Nama
 			})
@@ -279,7 +267,6 @@ func main() {
 			}
 
 		case "3":
-			// Sort Rumah Sakit berdasarkan Nama
 			sort.Slice(rumahSakitList, func(i, j int) bool {
 				return rumahSakitList[i].Nama < rumahSakitList[j].Nama
 			})
@@ -290,7 +277,6 @@ func main() {
 			}
 
 		case "4":
-			// Search Penyakit
 			var penyakitCari string
 			fmt.Print("\nMasukkan Penyakit yang ingin dicari: ")
 			fmt.Scanln(&penyakitCari)
@@ -315,7 +301,6 @@ func main() {
 			}
 
 		case "5":
-			// Keluar 
 			fmt.Println("Terima kasih!")
 			return
 
