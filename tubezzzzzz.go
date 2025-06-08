@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"sort"
 	"strings"
+	"sort" 
 )
 
 // bagian structure
@@ -37,7 +37,7 @@ func main() {
 	var rumahSakitList []RumahSakit
 	var pasienID, dokterID, rumahSakitID int
 
-	// Menambahkan dokter dan rumah sakit secara manual
+	// Menambahkan dokter dan rumah sakit 
 	dokterID++
 	dokterList = append(dokterList, Dokter{
 		ID:           dokterID,
@@ -50,7 +50,7 @@ func main() {
 	dokterList = append(dokterList, Dokter{
 		ID:           dokterID,
 		Nama:         "Dr. Panus",
-		Spesialisasi: "Gigi",
+		Spesialisasi: "Umum",
 		Penyakit:     []string{"Sakit Gigi", "Radang Gusi", "Infeksi Gigi"},
 	})
 
@@ -62,6 +62,95 @@ func main() {
 		Penyakit:     []string{"Cedera ACL", "Patah Tulang", "Fraktur Ligamen", "Cedera Sendi"},
 	})
 
+	dokterID++
+	dokterList = append(dokterList, Dokter{
+		ID:           dokterID,
+		Nama:         "Dr. Anisa",
+		Spesialisasi: "Ortopedi",
+		Penyakit:     []string{"Cedera Paha", "Dislokasi Sendi", "Fraktur Tibia"},
+	})
+
+	dokterID++
+	dokterList = append(dokterList, Dokter{
+		ID:           dokterID,
+		Nama:         "Dr. Lani",
+		Spesialisasi: "Gigi",
+		Penyakit:     []string{"Gigi Berlubang", "Radang Gusi", "Infeksi Gigi"},
+	})
+
+	dokterID++
+	dokterList = append(dokterList, Dokter{
+		ID:           dokterID,
+		Nama:         "Dr. Rizal",
+		Spesialisasi: "Gigi",
+		Penyakit:     []string{"Gigi Sensitif", "Gigi Rontok", "Karies Gigi"},
+	})
+
+	dokterID++
+	dokterList = append(dokterList, Dokter{
+		ID:           dokterID,
+		Nama:         "Dr. Budi",
+		Spesialisasi: "Penyakit Dalam",
+		Penyakit:     []string{"Diabetes", "Hipertensi", "Penyakit Jantung"},
+	})
+
+	dokterID++
+	dokterList = append(dokterList, Dokter{
+		ID:           dokterID,
+		Nama:         "Dr. Mira",
+		Spesialisasi: "Penyakit Dalam",
+		Penyakit:     []string{"Kolesterol Tinggi", "Gagal Ginjal", "Stroke"},
+	})
+
+	dokterID++
+	dokterList = append(dokterList, Dokter{
+		ID:           dokterID,
+		Nama:         "Dr. Agus",
+		Spesialisasi: "Anak",
+		Penyakit:     []string{"Demam", "Batuk", "Flu"},
+	})
+
+	dokterID++
+	dokterList = append(dokterList, Dokter{
+		ID:           dokterID,
+		Nama:         "Dr. Fitri",
+		Spesialisasi: "Anak",
+		Penyakit:     []string{"Infeksi Saluran Pernafasan", "Pneumonia", "Cacar Air"},
+	})
+
+	dokterID++
+	dokterList = append(dokterList, Dokter{
+		ID:           dokterID,
+		Nama:         "Dr. Taufik",
+		Spesialisasi: "Kandungan",
+		Penyakit:     []string{"Kehamilan", "Endometriosis", "Fibroid Uterus"},
+	})
+
+	dokterID++
+	dokterList = append(dokterList, Dokter{
+		ID:           dokterID,
+		Nama:         "Dr. Nadia",
+		Spesialisasi: "Kandungan",
+		Penyakit:     []string{"Infertilitas", "Kanker Serviks", "Menstruasi Tidak Teratur"},
+	})
+
+	dokterID++
+	dokterList = append(dokterList, Dokter{
+		ID:           dokterID,
+		Nama:         "Dr. Kevin",
+		Spesialisasi: "Kulit & Kelamin",
+		Penyakit:     []string{"Jerawat", "Psoriasis", "Eksim"},
+	})
+
+	dokterID++
+	dokterList = append(dokterList, Dokter{
+		ID:           dokterID,
+		Nama:         "Dr. Dina",
+		Spesialisasi: "Kulit & Kelamin",
+		Penyakit:     []string{"Vitiligo", "Kanker Kulit", "Infeksi Jamur"},
+	})
+
+	// Menambahkan rumah sakit
 	rumahSakitID++
 	rumahSakitList = append(rumahSakitList, RumahSakit{
 		ID:     rumahSakitID,
@@ -74,29 +163,24 @@ func main() {
 	rumahSakitList = append(rumahSakitList, RumahSakit{
 		ID:     rumahSakitID,
 		Nama:   "RS Telkom",
+		Lokasi: "Surabaya",
+		Dokter: dokterList,
+	})
+
+	rumahSakitID++
+	rumahSakitList = append(rumahSakitList, RumahSakit{
+		ID:     rumahSakitID,
+		Nama:   "RS Telkom",
 		Lokasi: "Jakarta",
 		Dokter: dokterList,
 	})
 
-	// Menggunakan pasien yang telah ada
-	pasienID++
-	pasienList = append(pasienList, Pasien{
-		ID:      pasienID,
-		Nama:    "Budi",
-		Usia:    25,
-		Tinggi:  1.75,
-		Berat:   70,
-		Kondisi: []string{"Flu", "Pilek"},
-	})
-
-	pasienID++
-	pasienList = append(pasienList, Pasien{
-		ID:      pasienID,
-		Nama:    "Dewi",
-		Usia:    30,
-		Tinggi:  1.60,
-		Berat:   60,
-		Kondisi: []string{"Sakit Gigi", "Radang Gusi"},
+	rumahSakitID++
+	rumahSakitList = append(rumahSakitList, RumahSakit{
+		ID:     rumahSakitID,
+		Nama:   "RS Telkom",
+		Lokasi: "Purwokerto",
+		Dokter: dokterList,
 	})
 
 	// Menu utama
@@ -106,14 +190,14 @@ func main() {
 		fmt.Println("1. Daftar Pasien")
 		fmt.Println("2. Lihat Daftar Dokter")
 		fmt.Println("3. Lihat Daftar Rumah Sakit")
-		fmt.Println("4. Cari Dokter Berdasarkan Penyakit")
+		fmt.Println("4. Cari Dokter berdasarkan Penyakit")
 		fmt.Println("5. Keluar")
 		fmt.Print("Masukkan menu (1-5): ")
 		fmt.Scanln(&aksi)
 
 		switch aksi {
 		case "1":
-			// Daftar Pasien: Menampilkan pasien dan menambah pasien
+			// Daftar Pasien
 			var pilihan string
 			fmt.Println("\n1. Lihat Daftar Pasien")
 			fmt.Println("2. Tambah Pasien")
@@ -122,18 +206,19 @@ func main() {
 
 			switch pilihan {
 			case "1":
-				// Menampilkan daftar pasien
-				fmt.Println("\nDaftar Pasien:")
-				sort.Slice(pasienList, func(i, j int) bool {
-					return pasienList[i].Usia < pasienList[j].Usia
-				})
-				for _, pasien := range pasienList {
-					fmt.Printf("ID: %d, Nama: %s, Usia: %d, Tinggi: %.2f m, Berat: %.2f kg, Kondisi: %v\n",
-						pasien.ID, pasien.Nama, pasien.Usia, pasien.Tinggi, pasien.Berat, pasien.Kondisi)
+				// Tampilkan daftar pasien
+				if len(pasienList) == 0 {
+					fmt.Println("Tidak ada pasien terdaftar.")
+				} else {
+					fmt.Println("\nDaftar Pasien:")
+					for _, pasien := range pasienList {
+						fmt.Printf("ID: %d, Nama: %s, Usia: %d, Tinggi: %.2f m, Berat: %.2f kg, Kondisi: %v\n",
+							pasien.ID, pasien.Nama, pasien.Usia, pasien.Tinggi, pasien.Berat, pasien.Kondisi)
+					}
 				}
 
 			case "2":
-				// Menambah pasien baru
+				// Tambah pasien baru
 				var nama, kondisiInput string
 				var usia int
 				var tinggi, berat float64
@@ -150,7 +235,7 @@ func main() {
 				fmt.Print("Masukkan Kondisi Pasien (pisahkan dengan koma): ")
 				fmt.Scanln(&kondisiInput)
 
-				// Memasukkan kondisi ke dalam array
+				
 				kondisi = strings.Split(kondisiInput, ",")
 				pasienID++
 				pasienList = append(pasienList, Pasien{
@@ -162,11 +247,11 @@ func main() {
 					Kondisi: kondisi,
 				})
 
-				// Rekomendasi dokter berdasarkan kondisi pasien
+				// Rekomendasi dokter 
 				fmt.Println("Pasien berhasil ditambahkan!")
 				fmt.Println("Rekomendasi Dokter berdasarkan kondisi pasien:")
 
-				// Mencocokkan kondisi pasien dengan dokter yang relevan
+			
 				for _, kondisiPenyakit := range kondisi {
 					for _, dokter := range dokterList {
 						for _, penyakit := range dokter.Penyakit {
@@ -182,28 +267,30 @@ func main() {
 			}
 
 		case "2":
-			// Bagian sort Dokter
-			fmt.Println("\nDaftar Dokter:")
+			// Sort Dokter berdasarkan Nama
 			sort.Slice(dokterList, func(i, j int) bool {
 				return dokterList[i].Nama < dokterList[j].Nama
 			})
+
+			fmt.Println("\nDaftar Dokter:")
 			for _, dokter := range dokterList {
 				fmt.Printf("ID: %d, Nama: %s, Spesialisasi: %s, Penyakit yang Ditangani: %v\n",
 					dokter.ID, dokter.Nama, dokter.Spesialisasi, dokter.Penyakit)
 			}
 
 		case "3":
-			// Bagian sort Rumah Sakit
-			fmt.Println("\nDaftar Rumah Sakit:")
+			// Sort Rumah Sakit berdasarkan Nama
 			sort.Slice(rumahSakitList, func(i, j int) bool {
-				return rumahSakitList[i].Lokasi < rumahSakitList[j].Lokasi
+				return rumahSakitList[i].Nama < rumahSakitList[j].Nama
 			})
+
+			fmt.Println("\nDaftar Rumah Sakit:")
 			for _, rumahSakit := range rumahSakitList {
 				fmt.Printf("ID: %d, Nama: %s, Lokasi: %s\n", rumahSakit.ID, rumahSakit.Nama, rumahSakit.Lokasi)
 			}
 
 		case "4":
-			// Bagian search Penyakit
+			// Search Penyakit
 			var penyakitCari string
 			fmt.Print("\nMasukkan Penyakit yang ingin dicari: ")
 			fmt.Scanln(&penyakitCari)
@@ -228,7 +315,7 @@ func main() {
 			}
 
 		case "5":
-			// Keluar dari program
+			// Keluar 
 			fmt.Println("Terima kasih!")
 			return
 
