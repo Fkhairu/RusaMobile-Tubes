@@ -228,12 +228,12 @@ func main() {
 				fmt.Scanln(&nama)
 				fmt.Print("Masukkan Usia Pasien: ")
 				fmt.Scanln(&usia)
-				fmt.Print("Masukkan Tinggi Pasien (dalam meter): ")
+				fmt.Print("Masukkan Tinggi Pasien (cm): ")
 				fmt.Scanln(&tinggi)
-				fmt.Print("Masukkan Berat Pasien (dalam kg): ")
+				fmt.Print("Masukkan Berat Pasien (kg): ")
 				fmt.Scanln(&berat)
 				fmt.Print("Masukkan Kondisi Pasien (pisahkan dengan koma): ")
-				fmt.Scanln(&kondisiInput)
+				fmt.Scanf("%s\n", &kondisiInput)
 
 				
 				kondisi = strings.Split(kondisiInput, ",")
