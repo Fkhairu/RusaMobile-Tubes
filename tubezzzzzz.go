@@ -180,132 +180,150 @@ func main() {
 	})
 
 	for {
-		var aksi string
-		fmt.Println("\nPilih menu:")
-		fmt.Println("1. Daftar Pasien")
-		fmt.Println("2. Lihat Daftar Dokter")
-		fmt.Println("3. Lihat Daftar Rumah Sakit")
-		fmt.Println("4. Cari Dokter berdasarkan Penyakit")
-		fmt.Println("5. Keluar")
-		fmt.Print("Masukkan menu (1-5): ")
-		fmt.Scanln(&aksi)
+	var aksi string
+	fmt.Println("\nPilih menu:")
+	fmt.Println("1. Daftar Pasien")
+	fmt.Println("2. Lihat Daftar Dokter")
+	fmt.Println("3. Lihat Daftar Rumah Sakit")
+	fmt.Println("4. Cari Dokter berdasarkan Penyakit")
+	fmt.Println("5. Cari Dokter berdasarkan Spesialisasi")
+	fmt.Println("6. Keluar")
+	fmt.Print("Masukkan menu (1-6): ")
+	fmt.Scanln(&aksi)
 
-		switch aksi {
+	switch aksi {
+	case "1":
+		var pilihan string
+		fmt.Println("\n1. Lihat Daftar Pasien")
+		fmt.Println("2. Tambah Pasien")
+		fmt.Print("Pilih menu (1-2): ")
+		fmt.Scanln(&pilihan)
+
+		switch pilihan {
 		case "1":
-			var pilihan string
-			fmt.Println("\n1. Lihat Daftar Pasien")
-			fmt.Println("2. Tambah Pasien")
-			fmt.Print("Pilih menu (1-2): ")
-			fmt.Scanln(&pilihan)
-
-			switch pilihan {
-			case "1":
-				if len(pasienList) == 0 {
-					fmt.Println("Tidak ada pasien terdaftar.")
-				} else {
-					fmt.Println("\nDaftar Pasien:")
-					for _, pasien := range pasienList {
-						fmt.Printf("ID: %d, Nama: %s, Usia: %d, Tinggi: %.2f m, Berat: %.2f kg, Kondisi: %v\n",
-							pasien.ID, pasien.Nama, pasien.Usia, pasien.Tinggi, pasien.Berat, pasien.Kondisi)
-					}
+			if len(pasienList) == 0 {
+				fmt.Println("Tidak ada pasien terdaftar.")
+			} else {
+				fmt.Println("\nDaftar Pasien:")
+				for _, pasien := range pasienList {
+					fmt.Printf("ID: %d, Nama: %s, Usia: %d, Tinggi: %.2f m, Berat: %.2f kg, Kondisi: %v\n",
+						pasien.ID, pasien.Nama, pasien.Usia, pasien.Tinggi, pasien.Berat, pasien.Kondisi)
 				}
-
-			case "2":
-				var nama, kondisiInput string
-				var usia int
-				var tinggi, berat float64
-				var kondisi []string
-
-				fmt.Print("\nMasukkan Nama Pasien: ")
-				fmt.Scanln(&nama)
-				fmt.Print("Masukkan Usia Pasien: ")
-				fmt.Scanln(&usia)
-				fmt.Print("Masukkan Tinggi Pasien (cm): ")
-				fmt.Scanln(&tinggi)
-				fmt.Print("Masukkan Berat Pasien (kg): ")
-				fmt.Scanln(&berat)
-				fmt.Print("Masukkan Kondisi Pasien (pisahkan dengan koma): ")
-				fmt.Scanf("%s\n", &kondisiInput)
-
-				kondisi = strings.Split(kondisiInput, ",")
-				pasienID++
-				pasienList = append(pasienList, Pasien{
-					ID:      pasienID,
-					Nama:    nama,
-					Usia:    usia,
-					Tinggi:  tinggi,
-					Berat:   berat,
-					Kondisi: kondisi,
-				})
-
-				fmt.Println("Pasien berhasil ditambahkan!")
-				fmt.Println("Rekomendasi Dokter berdasarkan kondisi pasien:")
-
-				for _, kondisiPenyakit := range kondisi {
-					for _, dokter := range dokterList {
-						for _, penyakit := range dokter.Penyakit {
-							if strings.Contains(strings.ToLower(penyakit), strings.ToLower(kondisiPenyakit)) {
-								fmt.Printf("Dokter: %s, Spesialisasi: %s\n", dokter.Nama, dokter.Spesialisasi)
-							}
-						}
-					}
-				}
-
-			default:
-				fmt.Println("Pilihan tidak valid. Silakan coba lagi.")
 			}
 
 		case "2":
-			sort.Slice(dokterList, func(i, j int) bool {
-				return dokterList[i].Nama < dokterList[j].Nama
+			var nama, kondisiInput string
+			var usia int
+			var tinggi, berat float64
+			var kondisi []string
+
+			fmt.Print("\nMasukkan Nama Pasien: ")
+			fmt.Scanln(&nama)
+			fmt.Print("Masukkan Usia Pasien: ")
+			fmt.Scanln(&usia)
+			fmt.Print("Masukkan Tinggi Pasien (cm): ")
+			fmt.Scanln(&tinggi)
+			fmt.Print("Masukkan Berat Pasien (kg): ")
+			fmt.Scanln(&berat)
+			fmt.Print("Masukkan Kondisi Pasien (pisahkan dengan koma): ")
+			fmt.Scanf("%s\n", &kondisiInput)
+
+			kondisi = strings.Split(kondisiInput, ",")
+			pasienID++
+			pasienList = append(pasienList, Pasien{
+				ID:      pasienID,
+				Nama:    nama,
+				Usia:    usia,
+				Tinggi:  tinggi,
+				Berat:   berat,
+				Kondisi: kondisi,
 			})
 
-			fmt.Println("\nDaftar Dokter:")
-			for _, dokter := range dokterList {
-				fmt.Printf("ID: %d, Nama: %s, Spesialisasi: %s, Penyakit yang Ditangani: %v\n",
-					dokter.ID, dokter.Nama, dokter.Spesialisasi, dokter.Penyakit)
-			}
+			fmt.Println("Pasien berhasil ditambahkan!")
+			fmt.Println("Rekomendasi Dokter berdasarkan kondisi pasien:")
 
-		case "3":
-			sort.Slice(rumahSakitList, func(i, j int) bool {
-				return rumahSakitList[i].Nama < rumahSakitList[j].Nama
-			})
-
-			fmt.Println("\nDaftar Rumah Sakit:")
-			for _, rumahSakit := range rumahSakitList {
-				fmt.Printf("ID: %d, Nama: %s, Lokasi: %s\n", rumahSakit.ID, rumahSakit.Nama, rumahSakit.Lokasi)
-			}
-
-		case "4":
-			var penyakitCari string
-			fmt.Print("\nMasukkan Penyakit yang ingin dicari: ")
-			fmt.Scanln(&penyakitCari)
-
-			fmt.Println("\nDokter yang dapat menangani penyakit ini:")
-			found := false
-			for _, dokter := range dokterList {
-				for _, p := range dokter.Penyakit {
-					if strings.Contains(strings.ToLower(p), strings.ToLower(penyakitCari)) {
-						fmt.Printf("ID: %d, Nama: %s, Spesialisasi: %s\n", dokter.ID, dokter.Nama, dokter.Spesialisasi)
-						found = true
+			for _, kondisiPenyakit := range kondisi {
+				for _, dokter := range dokterList {
+					for _, penyakit := range dokter.Penyakit {
+						if strings.Contains(strings.ToLower(penyakit), strings.ToLower(kondisiPenyakit)) {
+							fmt.Printf("Dokter: %s, Spesialisasi: %s\n", dokter.Nama, dokter.Spesialisasi)
+						}
 					}
 				}
 			}
-			if !found {
-				fmt.Println("Tidak ada dokter yang menangani penyakit ini.")
-			}
-
-			fmt.Println("\nRumah Sakit yang dapat menangani penyakit ini:")
-			for _, rumahSakit := range rumahSakitList {
-				fmt.Printf("ID: %d, Nama: %s, Lokasi: %s\n", rumahSakit.ID, rumahSakit.Nama, rumahSakit.Lokasi)
-			}
-
-		case "5":
-			fmt.Println("Terima kasih!")
-			return
 
 		default:
-			fmt.Println("Aksi tidak valid. Silakan coba lagi.")
+			fmt.Println("Pilihan tidak valid. Silakan coba lagi.")
 		}
+
+	case "2":
+		sort.Slice(dokterList, func(i, j int) bool {
+			return dokterList[i].Nama < dokterList[j].Nama
+		})
+
+		fmt.Println("\nDaftar Dokter:")
+		for _, dokter := range dokterList {
+			fmt.Printf("ID: %d, Nama: %s, Spesialisasi: %s, Penyakit yang Ditangani: %v\n",
+				dokter.ID, dokter.Nama, dokter.Spesialisasi, dokter.Penyakit)
+		}
+
+	case "3":
+		sort.Slice(rumahSakitList, func(i, j int) bool {
+			return rumahSakitList[i].Nama < rumahSakitList[j].Nama
+		})
+
+		fmt.Println("\nDaftar Rumah Sakit:")
+		for _, rumahSakit := range rumahSakitList {
+			fmt.Printf("ID: %d, Nama: %s, Lokasi: %s\n", rumahSakit.ID, rumahSakit.Nama, rumahSakit.Lokasi)
+		}
+
+	case "4":
+		var penyakitCari string
+		fmt.Print("\nMasukkan Penyakit yang ingin dicari: ")
+		fmt.Scanln(&penyakitCari)
+
+		fmt.Println("\nDokter yang dapat menangani penyakit ini:")
+		found := false
+		for _, dokter := range dokterList {
+			for _, p := range dokter.Penyakit {
+				if strings.Contains(strings.ToLower(p), strings.ToLower(penyakitCari)) {
+					fmt.Printf("ID: %d, Nama: %s, Spesialisasi: %s\n", dokter.ID, dokter.Nama, dokter.Spesialisasi)
+					found = true
+				}
+			}
+		}
+		if !found {
+			fmt.Println("Tidak ada dokter yang menangani penyakit ini.")
+		}
+
+		fmt.Println("\nRumah Sakit yang dapat menangani penyakit ini:")
+		for _, rumahSakit := range rumahSakitList {
+			fmt.Printf("ID: %d, Nama: %s, Lokasi: %s\n", rumahSakit.ID, rumahSakit.Nama, rumahSakit.Lokasi)
+		}
+
+	case "5":
+		var spesialisasiCari string
+		fmt.Print("\nMasukkan Spesialisasi Dokter yang ingin dicari: ")
+		fmt.Scanln(&spesialisasiCari)
+
+		fmt.Println("\nDokter dengan spesialisasi ini:")
+		found := false
+		for _, dokter := range dokterList {
+			if strings.Contains(strings.ToLower(dokter.Spesialisasi), strings.ToLower(spesialisasiCari)) {
+				fmt.Printf("ID: %d, Nama: %s, Spesialisasi: %s\n", dokter.ID, dokter.Nama, dokter.Spesialisasi)
+				found = true
+			}
+		}
+		if !found {
+			fmt.Println("Tidak ada dokter dengan spesialisasi ini.")
+		}
+
+	case "6":
+		fmt.Println("Terima kasih!")
+		return
+
+	default:
+		fmt.Println("Aksi tidak valid. Silakan coba lagi.")
+	}
 	}
 }
