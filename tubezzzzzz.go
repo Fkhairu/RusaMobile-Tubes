@@ -296,11 +296,6 @@ func main() {
 			fmt.Println("Tidak ada dokter yang menangani penyakit ini.")
 		}
 
-		fmt.Println("\nRumah Sakit yang dapat menangani penyakit ini:")
-		for _, rumahSakit := range rumahSakitList {
-			fmt.Printf("ID: %d, Nama: %s, Lokasi: %s\n", rumahSakit.ID, rumahSakit.Nama, rumahSakit.Lokasi)
-		}
-
 	case "5":
 		var spesialisasiCari string
 		fmt.Print("\nMasukkan Spesialisasi Dokter yang ingin dicari: ")
